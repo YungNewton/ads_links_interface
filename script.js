@@ -31,7 +31,7 @@ document.getElementById('adset-form').addEventListener('submit', async function 
 
     async function processAdsets(adsetData) {
         try {
-            const response = await fetch('/process', {
+            const response = await fetch('https://ad-links-backend.onrender.com/process', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
