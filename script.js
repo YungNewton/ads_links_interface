@@ -16,41 +16,30 @@ document.getElementById('adset-form').addEventListener('submit', async function 
     submitButton.disabled = true;
     submitButton.innerText = 'Processing...';
 
-    let adsetData = adsets;
-
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            adsetData = reader.result;
-            processAdsets(adsetData);
-        };
-        reader.readAsText(file);
-    } else {
-        processAdsets(adsetData);
+    const formData = new FormData();
+    if (adsets) {
+        formData.append('adsets', adsets);
+    } else if (file) {
+        formData.append('file', file);
     }
 
-    async function processAdsets(adsetData) {
-        try {
-            const response = await fetch('https://ad-links-backend.onrender.com/process', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ adsets: adsetData })
-            });
+    try {
+        const response = await fetch('https://ad-links-backend.onrender.com/process', {
+            method: 'POST',
+            body: formData
+        });
 
-            if (response.ok) {
-                window.location.href = 'success.html';
-            } else {
-                const errorData = await response.json();
-                alert('Failed to process ad sets: ' + errorData.message);
-                submitButton.disabled = false;
-                submitButton.innerText = 'Submit';
-            }
-        } catch (error) {
-            alert('Failed to connect to the server. Please ensure the backend is running.');
+        if (response.ok) {
+            window.location.href = 'success.html';
+        } else {
+            const errorData = await response.json();
+            alert('Failed to process ad sets: ' + errorData.message);
             submitButton.disabled = false;
             submitButton.innerText = 'Submit';
         }
+    } catch (error) {
+        alert('Failed to connect to the server. Please ensure the backend is running.');
+        submitButton.disabled = false;
+        submitButton.innerText = 'Submit';
     }
 });
