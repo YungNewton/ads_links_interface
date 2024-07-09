@@ -48,7 +48,7 @@ document.getElementById('adset-form').addEventListener('submit', async function 
                 submitButton.innerText = 'Submit';
             }
         } catch (error) {
-            alert('Failed to process ad sets: ' + error.message);
+            alert('Failed to connect to the server. Please ensure the backend is running.');
             submitButton.disabled = false;
             submitButton.innerText = 'Submit';
         }
