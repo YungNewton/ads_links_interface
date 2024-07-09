@@ -31,7 +31,7 @@ document.getElementById('adset-form').addEventListener('submit', async function 
 
     async function processAdsets(adsetData) {
         try {
-            const response = await fetch('http://localhost:5000/process', {
+            const response = await fetch('/process', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
