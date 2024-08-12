@@ -4,8 +4,17 @@ document.getElementById('adset-form').addEventListener('submit', async function 
     const adsetsInput = document.getElementById('adsets');
     const fileInput = document.getElementById('file');
     const submitButton = document.getElementById('submit-button');
+    const adAccountIdInput = document.getElementById('ad_account_id');
+    
     const adsets = adsetsInput.value.trim();
     const file = fileInput.files[0];
+    const adAccountId = adAccountIdInput.value.trim();
+
+    // Validate that ad account ID is provided
+    if (!adAccountId) {
+        alert('Please provide an Ad Account ID.');
+        return;
+    }
 
     // Validate that either adsets or file is provided, but not both
     if ((adsets && file) || (!adsets && !file)) {
@@ -17,6 +26,8 @@ document.getElementById('adset-form').addEventListener('submit', async function 
     submitButton.innerText = 'Processing...';
 
     const formData = new FormData();
+    formData.append('ad_account_id', adAccountId);
+    
     if (adsets) {
         formData.append('adsets', adsets);
     } else if (file) {
