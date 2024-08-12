@@ -1,18 +1,24 @@
 document.getElementById('adset-form').addEventListener('submit', async function (e) {
     e.preventDefault();
 
+    const adAccountIdInput = document.getElementById('ad_account_id');
+    const appIdInput = document.getElementById('app_id');
+    const appSecretInput = document.getElementById('app_secret');
+    const accessTokenInput = document.getElementById('access_token');
     const adsetsInput = document.getElementById('adsets');
     const fileInput = document.getElementById('file');
     const submitButton = document.getElementById('submit-button');
-    const adAccountIdInput = document.getElementById('ad_account_id');
     
+    const adAccountId = adAccountIdInput.value.trim();
+    const appId = appIdInput.value.trim();
+    const appSecret = appSecretInput.value.trim();
+    const accessToken = accessTokenInput.value.trim();
     const adsets = adsetsInput.value.trim();
     const file = fileInput.files[0];
-    const adAccountId = adAccountIdInput.value.trim();
 
-    // Validate that ad account ID is provided
-    if (!adAccountId) {
-        alert('Please provide an Ad Account ID.');
+    // Validate that required fields are provided
+    if (!adAccountId || !appId || !appSecret || !accessToken) {
+        alert('Please provide all required fields.');
         return;
     }
 
@@ -27,6 +33,9 @@ document.getElementById('adset-form').addEventListener('submit', async function 
 
     const formData = new FormData();
     formData.append('ad_account_id', adAccountId);
+    formData.append('app_id', appId);
+    formData.append('app_secret', appSecret);
+    formData.append('access_token', accessToken);
     
     if (adsets) {
         formData.append('adsets', adsets);
