@@ -16,11 +16,6 @@ document.getElementById('adset-form').addEventListener('submit', async function 
     const adsets = adsetsInput.value.trim();
     const file = fileInput.files[0];
 
-    // Validate that required fields are provided
-    if (!adAccountId || !appId || !appSecret || !accessToken) {
-        alert('Please provide all required fields.');
-        return;
-    }
 
     // Validate that either adsets or file is provided, but not both
     if ((adsets && file) || (!adsets && !file)) {
